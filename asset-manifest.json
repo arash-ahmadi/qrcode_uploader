@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/qrcode-uploader/static/css/main.c43654d4.css",
-    "main.js": "/qrcode-uploader/static/js/main.1a512a06.js",
-    "index.html": "/qrcode-uploader/index.html",
-    "main.c43654d4.css.map": "/qrcode-uploader/static/css/main.c43654d4.css.map",
-    "main.1a512a06.js.map": "/qrcode-uploader/static/js/main.1a512a06.js.map"
+    "main.css": "/qrcode_uploader/static/css/main.c43654d4.css",
+    "main.js": "/qrcode_uploader/static/js/main.1a512a06.js",
+    "index.html": "/qrcode_uploader/index.html",
+    "main.c43654d4.css.map": "/qrcode_uploader/static/css/main.c43654d4.css.map",
+    "main.1a512a06.js.map": "/qrcode_uploader/static/js/main.1a512a06.js.map"
   },
   "entrypoints": [
     "static/css/main.c43654d4.css",
