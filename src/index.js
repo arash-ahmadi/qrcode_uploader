@@ -15,12 +15,17 @@ function App() {
   document.body.style = 'background: #f3f3f3;';
   const [images, setImages] = React.useState([]);
   const [uploaded, setUploaded] = React.useState(0)
+  const [error, setError] = React.useState()
   const maxNumber = 1;
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     setImages(imageList);
-    console.log(images[0]);
   };
+  const onImageRemove = () => {
+    setImages()
+    setUploaded()
+    setError()
+  }
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
@@ -49,7 +54,12 @@ function App() {
           setImages([])
         }, 1500);
       } catch (error) {
-        console.log(error)
+        if (error.response.data.detail === "Could not validate user credentials"){
+          setError("Sorry, we could not verify your credentials")
+        }
+        else{
+          setError(error.response.data.detail)
+        }
         setUploaded(-1)
       }
     };
@@ -62,6 +72,7 @@ function App() {
           maxFileSize={5*1000000}
           value={images}
           onChange={onChange}
+          onImageRemove={onImageRemove}
           maxNumber={maxNumber}
           dataURLKey="data_url"
           acceptType={["jpg", "jpeg", "png"]}
@@ -122,7 +133,9 @@ function App() {
 
             </Box>
 
-            
+              {uploaded === -1 && (
+                <Typography marginBottom='10px'> {error} </Typography>
+              )}
               {uploaded !== 2 && (imageList.map((image, index) => (
                 <Box key={index} className={classes.imageItem}>
                   <img src={image.data_url} alt="" width="100%" />
@@ -136,6 +149,7 @@ function App() {
               {uploaded === 2 && (
                     <Typography marginBottom='40px'> Your image has been uploaded successfully, you can safely go back to the ViuBox SYZ app</Typography>
               )}
+              
               {errors && <div>
                 {errors.maxNumber && <Typography>Please upload only one image</Typography>}
                 {errors.acceptType && <Typography>Your selected file type is not allowed</Typography>}
