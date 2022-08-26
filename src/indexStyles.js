@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) =>
             display: 'flex',
             flexDirection: 'column-reverse',
             alignItems: 'center',
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
             
         },
         twobuttons: {

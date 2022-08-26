@@ -21,11 +21,6 @@ function App() {
     // data for submit
     setImages(imageList);
   };
-  const onImageRemove = () => {
-    setImages()
-    setUploaded()
-    setError()
-  }
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
@@ -72,7 +67,8 @@ function App() {
           maxFileSize={5*1000000}
           value={images}
           onChange={onChange}
-          onImageRemove={onImageRemove}
+          // onImageRemove={onImageRemove}
+          // onImageRemoveAll={onImageRemove}
           maxNumber={maxNumber}
           dataURLKey="data_url"
           acceptType={["jpg", "jpeg", "png"]}
@@ -121,18 +117,19 @@ function App() {
                       Upload
                     </Button>
                 )}
-                {uploaded === 1 && (
-                  <CircularProgress sx={{marginLeft: '5px'}}/>
-                )}
-                {uploaded === 2 && (
-                  <CheckIcon sx={{marginLeft: '5px'}}/>
-                )}
-                {uploaded === -1 && (
-                  <ClearIcon sx={{marginLeft: '5px'}}/>
-                )}
+                
+                
 
             </Box>
-
+                {uploaded === 1 && (
+                  <CircularProgress sx={{ marginLeft: '5px' }} />
+                )}
+                {uploaded === 2 && (
+                  <CheckIcon sx={{ marginLeft: '5px' }} />
+                )}
+                {uploaded === -1 && (
+                  <ClearIcon sx={{ marginLeft: '5px' }} />
+                )}
               {uploaded === -1 && (
                 <Typography marginBottom='10px'> {error} </Typography>
               )}
@@ -140,8 +137,8 @@ function App() {
                 <Box key={index} className={classes.imageItem}>
                   <img src={image.data_url} alt="" width="100%" />
                   <Box className={classes.imageButtonWrapper}>
-                    <Button sx={{marginRight: '5px'}} variant="outlined" onClick={() => onImageUpdate(index)}>RETRY</Button>
-                    <Button sx={{ marginLeft: '5px' }} variant="outlined" onClick={() => onImageRemove(index)}>REMOVE</Button>
+                    <Button sx={{ marginRight: '5px' }} variant="outlined" onClick={() => { onImageUpdate(index); setUploaded(0); setError(null);}}>RETRY</Button>
+                    <Button sx={{ marginLeft: '5px' }} variant="outlined" onClick={() => {onImageRemove(index); setUploaded(0); setError(null); setImages([]);}}>REMOVE</Button>
                   </Box>
                 </Box>
               )))}
@@ -158,10 +155,7 @@ function App() {
               </div>}
             {/* </Box> */}
             </>)}
-          
-            
         </ImageUploading>
-        
       </Box>
     </ThemeProvider>
     </div>
